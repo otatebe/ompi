@@ -26,7 +26,7 @@ void ADIOI_CHFS_Term(int* error_code) {
   *error_code = MPI_SUCCESS;
 }
 
-void ADIOI_CHFS_Term_call(MPI_Comm comm,
+int ADIOI_CHFS_Term_call(MPI_Comm comm,
                           int keyval,
                           void* attribute_val,
                           void* extra_state) {
