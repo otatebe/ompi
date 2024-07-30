@@ -196,7 +196,7 @@ dnl An m4 macro for use with m4_foreach_w and friends.  You should modify this
 dnl list if you want to add a known file system.  The list is just whitespace
 dnl separated, so you can use newlines and tabs as well.
 m4_define([known_filesystems_m4_w],
-          [nfs ufs pfs pvfs pvfs2 testfs xfs panfs gridftp lustre gpfs zoidfs hfs piofs sfs])dnl
+          [chfs nfs ufs pfs pvfs pvfs2 testfs xfs panfs gridftp lustre gpfs zoidfs hfs piofs sfs])dnl
 dnl
 dnl An m4 macro for use with m4_foreach and friends.  Expands to a quoted list of
 dnl quoted elements.  A bit easier to use without unintended expansion than the
@@ -998,6 +998,17 @@ if test -n "$file_system_zoidfs"; then
 		AC_DEFINE(ROMIO_ZOIDFS,1,[Define for ROMIO with ZoidFD]),
 		AC_MSG_ERROR([ZoidFS support requested but cannot find zoidfs.h header file])
 	)
+fi
+
+if test -n "$file_system_chfs"; then
+  PKG_CHECK_MODULES([CHFS], [chfs],
+    AC_DEFINE(ROMIO_CHFS,1,[Define for ROMIO with CHFS]),
+    AC_MSG_ERROR([CHFS support requested but cannot find chfs.pc])
+  )
+  AC_SUBST([CHFS_LIBS])
+  AC_SUBST([CHFS_CFLAGS])
+  PAC_APPEND_FLAG([${CHFS_LIBS}], [LIBS])
+  PAC_APPEND_FLAG([${CHFS_CFLAGS}], [CFLAGS])
 fi
 
 #

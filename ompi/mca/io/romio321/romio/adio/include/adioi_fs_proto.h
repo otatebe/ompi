@@ -89,4 +89,9 @@ extern struct ADIOI_Fns_struct ADIO_GRIDFTP_operations;
 extern struct ADIOI_Fns_struct ADIO_ZOIDFS_operations;
 #endif
 
+#ifdef ROMIO_CHFS
+/* prototypes are in adio/ad_chfs/ad_chfs.h */
+extern struct ADIOI_Fns_struct ADIO_CHFS_operations;
+#endif
+
 #endif

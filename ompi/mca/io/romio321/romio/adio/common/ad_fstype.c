@@ -572,6 +572,9 @@ static void ADIO_FileSysType_prefix(const char *filename, int *fstype, int *erro
     else if (!strncmp(filename, "gpfs:", 5) || !strncmp(filename, "GPFS:", 5)) {
 	*fstype = ADIO_GPFS;
     }
+    else if (!strncmp(filename, "chfs:", 5) || !strncmp(filename, "CHFS:", 5)) {
+	*fstype = ADIO_CHFS;
+    }
     else {
 #ifdef ROMIO_NTFS
 	*fstype = ADIO_NTFS;
@@ -862,6 +865,16 @@ void ADIO_ResolveFileType(MPI_Comm comm, const char *filename, int *fstype,
 	return;
 #else
 	*ops = &ADIO_ZOIDFS_operations;
+#endif
+    }
+    if (file_system == ADIO_CHFS) {
+#ifndef ROMIO_CHFS
+	*error_code = MPIO_Err_create_code(MPI_SUCCESS, MPIR_ERR_RECOVERABLE,
+					   myname, __LINE__, MPI_ERR_IO,
+					   "**iofstypeunsupported", 0);
+	return;
+#else
+	*ops = &ADIO_CHFS_operations;
 #endif
     }
     *error_code = MPI_SUCCESS;
