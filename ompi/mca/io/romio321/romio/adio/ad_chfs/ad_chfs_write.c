@@ -43,7 +43,7 @@ void ADIOI_CHFS_WriteContig(ADIO_File fd,
     ss = chfs_pwrite(fd->fd_sys, buf + xfered, data_size - xfered,
                      write_offset + xfered);
 #ifdef DEBUG
-    FPRINTF(stdout, "[%d/%d]    chfs_pwrite xfered=%d,sz=%d,ofs=%d,ss=%d\n",
+    FPRINTF(stdout, "[%d/%d]    chfs_pwrite xfered=%lu,sz=%lu,ofs=%lu,ss=%ld\n",
             myrank, nprocs, xfered, data_size - xfered, write_offset + xfered,
             ss);
 #endif

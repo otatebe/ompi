@@ -16,7 +16,7 @@ void ADIOI_CHFS_Resize(ADIO_File fd, ADIO_Offset size, int* error_code) {
   MPI_Comm_rank(fd->comm, &myrank);
 #ifdef DEBUG
   MPI_Comm_size(fd->comm, &nprocs);
-  FPRINTF(stdout, "[%d/%d] ADIOI_CHFS_Resize called on %s, sz=%d\n", myrank,
+  FPRINTF(stdout, "[%d/%d] ADIOI_CHFS_Resize called on %s, sz=%lld\n", myrank,
           nprocs, fd->filename, size);
 #endif
 
