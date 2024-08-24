@@ -9,7 +9,6 @@
 
 void ADIOI_CHFS_Close(ADIO_File fd, int* error_code) {
   static char myname[] = "ADIOI_CHFS_Close";
-  struct ADIOI_CHFS_fs_s *chfs_fs;
 
 #ifdef DEBUG
   int myrank, nprocs;
@@ -24,8 +23,5 @@ void ADIOI_CHFS_Close(ADIO_File fd, int* error_code) {
     *error_code = ADIOI_Err_create_code(myname, fd->filename, errno);
     return;
   }
-  chfs_fs = (ADIOI_CHFS_fs*) fd->fs_ptr;
-  ADIOI_Free(chfs_fs);
-  fd->fs_ptr = NULL;
   fd->fd_sys = -1;
 }

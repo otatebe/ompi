@@ -14,7 +14,6 @@ void ADIOI_CHFS_Fcntl(ADIO_File fd,
                       int* error_code) {
   int myrank, nprocs;
   static char myname[] = "ADIOI_CHFS_Fcntl";
-  struct ADIOI_CHFS_fs_s* chfs_fs;
 
 #ifdef DEBUG
   MPI_Comm_size(fd->comm, &nprocs);
@@ -27,10 +26,9 @@ void ADIOI_CHFS_Fcntl(ADIO_File fd,
 
   switch (flag) {
     case ADIO_FCNTL_GET_FSIZE:
-      chfs_fs = (ADIOI_CHFS_fs*)fd->fs_ptr;
       fcntl_struct->fsize = 0;
       struct stat st;
-      if (chfs_stat(chfs_fs->absolute_path, &st)) {
+      if (chfs_fstat(fd->fd_sys, &st)) {
         *error_code = ADIOI_Err_create_code(myname, fd->filename, errno);
       } else {
         fcntl_struct->fsize = st.st_size;

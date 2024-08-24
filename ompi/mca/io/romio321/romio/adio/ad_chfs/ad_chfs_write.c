@@ -18,7 +18,6 @@ void ADIOI_CHFS_WriteContig(ADIO_File fd,
   static char myname[] = "ADIOI_CHFS_WriteContig";
   int myrank, nprocs;
   MPI_Count datatype_size;
-  struct ADIOI_CHFS_fs_s* chfs_fs = (ADIOI_CHFS_fs*)fd->fs_ptr;;
   MPI_Type_size_x(datatype, &datatype_size);
 
 #ifdef DEBUG

@@ -17,7 +17,6 @@ void ADIOI_CHFS_ReadContig(ADIO_File fd,
                            int* error_code) {
   static char myname[] = "ADIOI_CHFS_ReadContig";
   int myrank, nprocs;
-  struct ADIOI_CHFS_fs_s* chfs_fs = (ADIOI_CHFS_fs*)fd->fs_ptr;;
   MPI_Count datatype_size;
   MPI_Type_size_x(datatype, &datatype_size);
 

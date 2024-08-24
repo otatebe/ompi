@@ -11,7 +11,6 @@ void ADIOI_CHFS_Resize(ADIO_File fd, ADIO_Offset size, int* error_code) {
   static char myname[] = "ADIOI_CHFS_Resize";
   int ret;
   int nprocs, myrank;
-  struct ADIOI_CHFS_fs_s* chfs_fs;
 
   MPI_Comm_rank(fd->comm, &myrank);
 #ifdef DEBUG
@@ -25,8 +24,7 @@ void ADIOI_CHFS_Resize(ADIO_File fd, ADIO_Offset size, int* error_code) {
 
 
   if (myrank == 0) {
-    chfs_fs = (ADIOI_CHFS_fs*)fd->fs_ptr;
-    ret = chfs_truncate(chfs_fs->absolute_path, size);
+    ret = chfs_ftruncate(fd->fd_sys, size);
   }
 
   MPI_Bcast(&ret, 1, MPI_INT, 0, fd->comm);

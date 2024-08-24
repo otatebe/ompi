@@ -10,7 +10,6 @@
 
 void ADIOI_CHFS_Delete(const char* filename, int* error_code) {
   static char myname[] = "ADIOI_CHFS_Delete";
-  char absolute_path[PATH_MAX];
 
 #ifdef DEBUG
   int myrank, nprocs;
@@ -27,13 +26,7 @@ void ADIOI_CHFS_Delete(const char* filename, int* error_code) {
     return;
   }
 
-  if (ADIOI_CHFS_get_absolute_path(filename, absolute_path,
-                                   sizeof(absolute_path)) == NULL) {
-    *error_code = ADIOI_Err_create_code(myname, filename, errno);
-    return;
-  }
-
-  if (chfs_unlink(absolute_path)) {
+  if (chfs_unlink(filename)) {
     *error_code = ADIOI_Err_create_code(myname, filename, errno);
   }
 }
