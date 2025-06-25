@@ -43,7 +43,7 @@ AC_DEFUN_ONCE([_OMPI_SETUP_FC_COMPILER],[
     # Fortran compilers (excluding the f77 compiler names) from AC's
     # default list of compilers and use it here.  This is the main
     # reason we have an OMPI-ized version of the PROG_FC macro.
-    AC_PROG_FC([gfortran f95 fort xlf95 ifort ifc efc pgfortran pgf95 lf95 f90 xlf90 pgf90 epcf90 nagfor])
+    AC_PROG_FC([gfortran f95 fort xlf95 ifort ifc efc pgfortran pgf95 lf95 f90 xlf90 pgf90 epcf90 nagfor nvfortran])
     FCFLAGS="$ompi_fcflags_save"
     OPAL_VAR_SCOPE_POP
 ])
@@ -210,13 +210,13 @@ end program
     LIBS=$LIBS_save_xcode
 
     AS_IF([test $xcode_happy -eq 1],
-          [ # Restore LDFLAFGS + the new flags (i.e., get rid of the
+          [ # Restore LDFLAGS + the new flags (i.e., get rid of the
             # "-L." we added for this test)
-           LDFLAGS="$LDFLAGS_xcode_save $1"
+           LDFLAGS="$LDFLAGS_save_xcode $1"
            $2],
           [ # If we failed the test, reset LDFLAGS back to its
             # original value.
-           LDFLAGS=$LDFLAGS_xcode_save
+           LDFLAGS=$LDFLAGS_save_xcode
            $3])
 
     OPAL_VAR_SCOPE_POP
